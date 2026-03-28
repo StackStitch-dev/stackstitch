@@ -24,6 +24,10 @@ Requirements for initial open-source release. Each maps to roadmap phases.
 - [ ] **CRED-03**: GitHub OAuth tokens can be stored and refreshed by the connector
 - [ ] **CRED-04**: Credentials are never logged or exposed in API responses
 
+### OAuth Management
+
+- [ ] **OAUTH-01**: Web interface allows users to connect GitHub (and future platforms) via OAuth flow, storing tokens through Core's credential store
+
 ### Metrics
 
 - [ ] **METR-01**: PR cycle time metric is calculated (time from PR open to merge)
@@ -111,50 +115,51 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INGEST-01 | — | Pending |
-| INGEST-02 | — | Pending |
-| INGEST-03 | — | Pending |
-| INGEST-04 | — | Pending |
-| INGEST-05 | — | Pending |
-| INGEST-06 | — | Pending |
-| INGEST-07 | — | Pending |
-| CRED-01 | — | Pending |
-| CRED-02 | — | Pending |
-| CRED-03 | — | Pending |
-| CRED-04 | — | Pending |
-| METR-01 | — | Pending |
-| METR-02 | — | Pending |
-| METR-03 | — | Pending |
-| METR-04 | — | Pending |
-| METR-05 | — | Pending |
-| METR-06 | — | Pending |
-| METR-07 | — | Pending |
-| ANOM-01 | — | Pending |
-| ANOM-02 | — | Pending |
-| ANOM-03 | — | Pending |
-| ANOM-04 | — | Pending |
-| INTL-01 | — | Pending |
-| INTL-02 | — | Pending |
-| INTL-03 | — | Pending |
-| INTL-04 | — | Pending |
-| INTL-05 | — | Pending |
-| INTL-06 | — | Pending |
-| CHAN-01 | — | Pending |
-| CHAN-02 | — | Pending |
-| CHAN-03 | — | Pending |
-| CHAN-04 | — | Pending |
-| CHAN-05 | — | Pending |
-| INFR-01 | — | Pending |
-| INFR-02 | — | Pending |
-| INFR-03 | — | Pending |
-| INFR-04 | — | Pending |
-| INFR-05 | — | Pending |
+| INFR-05 | Phase 1 | Pending |
+| INFR-01 | Phase 2 | Pending |
+| INFR-02 | Phase 2 | Pending |
+| INFR-03 | Phase 2 | Pending |
+| INFR-04 | Phase 2 | Pending |
+| CRED-01 | Phase 2 | Pending |
+| CRED-02 | Phase 2 | Pending |
+| CRED-04 | Phase 2 | Pending |
+| METR-01 | Phase 3 | Pending |
+| METR-02 | Phase 3 | Pending |
+| METR-03 | Phase 3 | Pending |
+| METR-04 | Phase 3 | Pending |
+| METR-05 | Phase 3 | Pending |
+| METR-06 | Phase 3 | Pending |
+| METR-07 | Phase 3 | Pending |
+| ANOM-01 | Phase 3 | Pending |
+| ANOM-02 | Phase 3 | Pending |
+| ANOM-03 | Phase 3 | Pending |
+| ANOM-04 | Phase 3 | Pending |
+| INTL-01 | Phase 4 | Pending |
+| INTL-02 | Phase 4 | Pending |
+| INTL-03 | Phase 4 | Pending |
+| INTL-04 | Phase 4 | Pending |
+| INTL-05 | Phase 4 | Pending |
+| INTL-06 | Phase 4 | Pending |
+| INGEST-01 | Phase 5 | Pending |
+| INGEST-02 | Phase 5 | Pending |
+| INGEST-03 | Phase 5 | Pending |
+| INGEST-04 | Phase 5 | Pending |
+| INGEST-05 | Phase 5 | Pending |
+| INGEST-06 | Phase 5 | Pending |
+| INGEST-07 | Phase 5 | Pending |
+| CRED-03 | Phase 5 | Pending |
+| OAUTH-01 | Phase 6 | Pending |
+| CHAN-01 | Phase 7 | Pending |
+| CHAN-02 | Phase 7 | Pending |
+| CHAN-03 | Phase 7 | Pending |
+| CHAN-04 | Phase 7 | Pending |
+| CHAN-05 | Phase 7 | Pending |
 
 **Coverage:**
-- v1 requirements: 38 total
-- Mapped to phases: 0
-- Unmapped: 38
+- v1 requirements: 39 total
+- Mapped to phases: 39
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-27*
-*Last updated: 2026-03-27 after initial definition*
+*Last updated: 2026-03-27 after roadmap revision (monorepo restructure)*
