@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-02-PLAN.md
-last_updated: "2026-03-31T23:32:32.639Z"
+stopped_at: Completed 01-03-PLAN.md
+last_updated: "2026-03-31T23:44:11.657Z"
 last_activity: 2026-03-31
 progress:
   total_phases: 7
   completed_phases: 0
-  total_plans: 3
-  completed_plans: 2
+  total_plans: 0
+  completed_plans: 3
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-27)
 ## Current Position
 
 Phase: 1 of 7 (Core Domain & Ports)
-Plan: 2 of 3 in current phase
+Plan: 3 of 3 in current phase
 Status: Ready to execute
 Last activity: 2026-03-31
 
@@ -54,6 +54,7 @@ Progress: [..........] 0%
 *Updated after each plan completion*
 | Phase 01 P01 | 5min | 2 tasks | 24 files |
 | Phase 01 P02 | 4min | 2 tasks | 18 files |
+| Phase 01 P03 | 6m | 2 tasks | 15 files |
 
 ## Accumulated Context
 
@@ -68,6 +69,7 @@ Recent decisions affecting current work:
 - [Phase 01]: Used hatchling build backend instead of uv_build for src layout support
 - [Phase 01]: InvalidEntityStateError accepts Any for entity_id to support composite-key entities
 - [Phase 01]: All port methods async-only per D-35; composite key tuples for Stream/Metric repos; FakeMetricMonitor does not emit events
+- [Phase 01]: Stream-to-metric 1:1 mapping dict for Phase 1; real calculator adapter in Phase 3
 
 ### Pending Todos
 
@@ -81,6 +83,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-31T23:32:32.637Z
-Stopped at: Completed 01-02-PLAN.md
+Last session: 2026-03-31T23:44:11.655Z
+Stopped at: Completed 01-03-PLAN.md
 Resume file: None
