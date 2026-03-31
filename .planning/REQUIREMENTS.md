@@ -68,7 +68,7 @@ Requirements for initial open-source release. Each maps to roadmap phases.
 - [ ] **INFR-02**: MongoDB is used as the primary data store for streams, metrics, and insights
 - [ ] **INFR-03**: Kafka handles async messaging between Connector Service and Core
 - [ ] **INFR-04**: Structured JSON logging with correlation context across all services
-- [ ] **INFR-05**: Project scaffold follows DDD + Hexagonal Architecture for the Core service
+- [x] **INFR-05**: Project scaffold follows DDD + Hexagonal Architecture for the Core service
 
 ## v2 Requirements
 
@@ -115,7 +115,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFR-05 | Phase 1 | Pending |
+| INFR-05 | Phase 1 | Complete |
 | INFR-01 | Phase 2 | Pending |
 | INFR-02 | Phase 2 | Pending |
 | INFR-03 | Phase 2 | Pending |
