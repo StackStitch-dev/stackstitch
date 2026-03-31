@@ -32,7 +32,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Use case classes for stream ingestion, metric calculation, anomaly detection, and insight creation exist with business logic that operates on ports (not concrete implementations)
   4. All domain logic is testable with in-memory fakes -- no external dependencies required
   5. Directory structure follows `core/domain/`, `core/application/ports/`, `core/application/use_cases/` hexagonal layout
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [x] 01-01-PLAN.md -- Project scaffold, domain entities, enums, events, and exceptions
+- [ ] 01-02-PLAN.md -- Port interface definitions and in-memory fakes with pytest fixtures
+- [ ] 01-03-PLAN.md -- All 7 use cases with comprehensive test suites
 
 ### Phase 2: Core Infrastructure Adapters
 **Goal**: Core's ports have concrete implementations (MongoDB, Kafka, encryption) and all services start with one Docker Compose command, making the Core fully functional with real infrastructure
@@ -113,7 +117,7 @@ Note: Phase 5 depends on Phase 2 (not Phase 4), so Phases 3-4 and Phase 5 could 
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Core Domain & Ports | 0/TBD | Not started | - |
+| 1. Core Domain & Ports | 1/3 | In Progress|  |
 | 2. Core Infrastructure Adapters | 0/TBD | Not started | - |
 | 3. Core Metric & Anomaly Engine | 0/TBD | Not started | - |
 | 4. Core Intelligence Engine | 0/TBD | Not started | - |
