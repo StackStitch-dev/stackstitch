@@ -12,7 +12,7 @@ Reduce engineering leaders' cognitive load by automatically correlating cross-pl
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Deployable via containerized setup for local self-hosting — *domain layer validated in Phase 1: core domain entities, ports, use cases, and in-memory fakes all testable with zero infrastructure* (INFR-05)
 
 ### Active
 
@@ -101,4 +101,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-27 after initialization*
+*Last updated: 2026-03-31 after Phase 1 completion — core domain layer, ports, and use cases verified*
