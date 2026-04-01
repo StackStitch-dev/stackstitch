@@ -18,6 +18,7 @@ class Insight(BaseModel):
     id: UUID = Field(default_factory=uuid4)
     project_id: UUID
     investigation_id: UUID
+    thread_id: UUID | None = None
     title: str
     narrative: str
     insight_type: InsightType
@@ -32,6 +33,7 @@ class Insight(BaseModel):
                 insight_id=self.id,
                 investigation_id=self.investigation_id,
                 project_id=self.project_id,
+                thread_id=self.thread_id,
             )
         )
 

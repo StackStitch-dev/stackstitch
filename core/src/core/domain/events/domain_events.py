@@ -53,11 +53,16 @@ class AnomalyDetected(DomainEvent):
 
 
 class InsightCreated(DomainEvent):
-    """Emitted by RunInvestigation after producing an Insight."""
+    """Emitted by RunInvestigation after producing an Insight.
+
+    thread_id is set when the insight targets a specific thread (ad-hoc).
+    When None, the insight is broadcast to all project threads (anomaly).
+    """
 
     insight_id: UUID
     investigation_id: UUID
     project_id: UUID
+    thread_id: UUID | None = None
 
 
 class MessageCreated(DomainEvent):

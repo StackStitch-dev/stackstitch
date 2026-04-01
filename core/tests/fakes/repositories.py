@@ -89,6 +89,9 @@ class InMemoryThreadRepository(ThreadRepository):
     async def get_by_id(self, thread_id: UUID) -> Thread | None:
         return self._store.get(thread_id)
 
+    async def get_by_project_id(self, project_id: UUID) -> list[Thread]:
+        return [t for t in self._store.values() if t.project_id == project_id]
+
 
 class InMemoryInvocationRepository(InvocationRepository):
     """In-memory fake for InvocationRepository.

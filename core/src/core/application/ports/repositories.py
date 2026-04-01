@@ -65,6 +65,9 @@ class ThreadRepository(abc.ABC):
     @abc.abstractmethod
     async def get_by_id(self, thread_id: UUID) -> Thread | None: ...
 
+    @abc.abstractmethod
+    async def get_by_project_id(self, project_id: UUID) -> list[Thread]: ...
+
 
 class InvocationRepository(abc.ABC):
     """Port for persisting and retrieving Invocation entities.
