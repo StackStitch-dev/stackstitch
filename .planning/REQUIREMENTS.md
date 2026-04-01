@@ -116,13 +116,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | INFR-05 | Phase 1 | Complete |
-| INFR-01 | Phase 2 | Pending |
-| INFR-02 | Phase 2 | Pending |
-| INFR-03 | Phase 2 | Pending |
-| INFR-04 | Phase 2 | Pending |
-| CRED-01 | Phase 2 | Pending |
-| CRED-02 | Phase 2 | Pending |
-| CRED-04 | Phase 2 | Pending |
+| INFR-01 | Phase 2a | Pending |
+| INFR-02 | Phase 2a | Pending |
+| INFR-03 | Phase 2b | Pending |
+| INFR-04 | Phase 2c | Pending |
+| CRED-01 | Phase 5 | Pending |
+| CRED-02 | Phase 5 | Pending |
+| CRED-04 | Phase 5 | Pending |
 | METR-01 | Phase 3 | Pending |
 | METR-02 | Phase 3 | Pending |
 | METR-03 | Phase 3 | Pending |

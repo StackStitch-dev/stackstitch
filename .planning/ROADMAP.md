@@ -13,7 +13,9 @@ StackStitch is built as a monorepo with four independent projects: `core/` (doma
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: Core Domain & Ports** - Domain model entities, use case interfaces, and port definitions for the entire system (hexagonal skeleton)
-- [ ] **Phase 2: Core Infrastructure Adapters** - MongoDB adapters, Kafka producers/consumers, credential encryption, Docker Compose environment, and structured logging
+- [ ] **Phase 2a: Docker Compose & MongoDB Adapters** - Docker Compose environment (MongoDB, Kafka, Core stub) and MongoDB repository adapters for all domain ports
+- [ ] **Phase 2b: Kafka Adapters** - Kafka event publisher adapter, consumer infrastructure, and event routing between services
+- [ ] **Phase 2c: Credentials & Logging** - Fernet encryption for credential storage, BYOK LLM key management, and structured JSON logging
 - [ ] **Phase 3: Core Metric & Anomaly Engine** - Metric calculators, time-window aggregations, retroactive upserts, anomaly detection with severity tiers
 - [ ] **Phase 4: Core Intelligence Engine** - Deterministic and AI investigators (ADK agents), insight store, token budgets, and pattern detection
 - [ ] **Phase 5: Connector Service (GitHub)** - Webhook/polling ingestion, raw audit storage, stream normalization, debounced Kafka publishing
@@ -38,17 +40,33 @@ Plans:
 - [x] 01-02-PLAN.md -- Port interface definitions and in-memory fakes with pytest fixtures
 - [ ] 01-03-PLAN.md -- All 7 use cases with comprehensive test suites
 
-### Phase 2: Core Infrastructure Adapters
-**Goal**: Core's ports have concrete implementations (MongoDB, Kafka, encryption) and all services start with one Docker Compose command, making the Core fully functional with real infrastructure
+### Phase 2a: Docker Compose & MongoDB Adapters
+**Goal**: All services start with one `docker compose up` command, and MongoDB adapters implement all repository ports so domain entities can be persisted and retrieved against real infrastructure
 **Depends on**: Phase 1
-**Requirements**: INFR-01, INFR-02, INFR-03, INFR-04, CRED-01, CRED-02, CRED-04
+**Requirements**: INFR-01, INFR-02
 **Success Criteria** (what must be TRUE):
   1. Running `docker compose up` starts MongoDB, Kafka, and the Core service stub without errors
   2. MongoDB adapters implement all repository ports and can persist/retrieve domain entities
-  3. Kafka adapters implement message broker ports and can publish/consume events
-  4. A credential can be stored encrypted, retrieved decrypted, and is never visible in logs or API responses
-  5. User can configure their own LLM API key via environment variable and it persists encrypted
-  6. All services emit structured JSON logs with correlation context
+  3. Integration tests verify round-trip persistence for all 6 repository ports against real MongoDB (via testcontainers)
+**Plans**: TBD
+
+### Phase 2b: Kafka Adapters
+**Goal**: Kafka adapters implement event publishing and consuming, enabling async message flow between services through the message broker
+**Depends on**: Phase 2a
+**Requirements**: INFR-03
+**Success Criteria** (what must be TRUE):
+  1. Kafka producer adapter implements EventPublisher port and can publish domain events to topics
+  2. Kafka consumer infrastructure can subscribe to topics and route events to use case handlers
+  3. Integration tests verify publish/consume round-trips against real Kafka (via testcontainers)
+**Plans**: TBD
+
+### Phase 2c: Structured Logging
+**Goal**: All services emit structured JSON logs with correlation context for observability and debugging
+**Depends on**: Phase 2a
+**Requirements**: INFR-04
+**Success Criteria** (what must be TRUE):
+  1. All services emit structured JSON logs with correlation context
+  2. Log correlation IDs propagate across async boundaries (Kafka message headers)
 **Plans**: TBD
 
 ### Phase 3: Core Metric & Anomaly Engine
@@ -78,7 +96,7 @@ Plans:
 ### Phase 5: Connector Service (GitHub)
 **Goal**: Real GitHub activity (PRs, commits, reviews) flows into `connector-service/`, is stored for audit, normalized, and published to Kafka where Core's metric engine picks it up
 **Depends on**: Phase 2
-**Requirements**: INGEST-01, INGEST-02, INGEST-03, INGEST-04, INGEST-05, INGEST-06, INGEST-07, CRED-03
+**Requirements**: INGEST-01, INGEST-02, INGEST-03, INGEST-04, INGEST-05, INGEST-06, INGEST-07, CRED-01, CRED-02, CRED-03, CRED-04
 **Success Criteria** (what must be TRUE):
   1. A GitHub webhook event for a PR, commit, or review is received, verified (HMAC), and stored as raw audit data
   2. A polling fallback retrieves the same data when webhooks are unavailable
@@ -112,13 +130,15 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
-Note: Phase 5 depends on Phase 2 (not Phase 4), so Phases 3-4 and Phase 5 could theoretically run in parallel, but sequential execution keeps things simple.
+Phases execute in numeric order: 1 -> 2a -> 2b -> 2c -> 3 -> 4 -> 5 -> 6 -> 7
+Note: Phase 2b and 2c both depend on 2a but are independent of each other. Phase 5 depends on Phase 2a (not Phase 4), so Phases 3-4 and Phase 5 could theoretically run in parallel, but sequential execution keeps things simple.
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Core Domain & Ports | 2/3 | In Progress|  |
-| 2. Core Infrastructure Adapters | 0/TBD | Not started | - |
+| 1. Core Domain & Ports | 3/3 | Complete |  |
+| 2a. Docker Compose & MongoDB | 0/TBD | Not started | - |
+| 2b. Kafka Adapters | 0/TBD | Not started | - |
+| 2c. Credentials & Logging | 0/TBD | Not started | - |
 | 3. Core Metric & Anomaly Engine | 0/TBD | Not started | - |
 | 4. Core Intelligence Engine | 0/TBD | Not started | - |
 | 5. Connector Service (GitHub) | 0/TBD | Not started | - |
