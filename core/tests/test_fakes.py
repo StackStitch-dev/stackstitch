@@ -265,9 +265,24 @@ class TestFakeMetricMonitor:
     async def test_records_checked_metrics(self) -> None:
         fake = FakeMetricMonitor()
         metric = Metric(metric_type=MetricType.PR_CYCLE_TIME, project_id=uuid4())
-        await fake.check(metric)
+        result = await fake.check(metric)
         assert len(fake.checked_metrics) == 1
         assert fake.checked_metrics[0] == metric
+        assert result is None
+
+    async def test_returns_preset_anomaly(self) -> None:
+        from core.application.ports.metric_monitor import AnomalyResult
+
+        anomaly = AnomalyResult(
+            severity="high",
+            description="test anomaly",
+            metric_value=15.0,
+            threshold=10.0,
+        )
+        fake = FakeMetricMonitor(preset_anomaly=anomaly)
+        metric = Metric(metric_type=MetricType.PR_CYCLE_TIME, project_id=uuid4())
+        result = await fake.check(metric)
+        assert result == anomaly
 
 
 # --- Fake Agent ---

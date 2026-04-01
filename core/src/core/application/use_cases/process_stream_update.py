@@ -1,4 +1,4 @@
-"""ProcessStreamUpdate use case -- runs calculator, saves metric, emits MetricUpdated (D-62)."""
+"""ProcessStreamUpdate use case -- runs calculator, saves metric, publishes entity events (D-62)."""
 
 from __future__ import annotations
 
@@ -9,7 +9,6 @@ from core.application.ports.metrics_calculator import MetricsCalculator
 from core.application.ports.repositories import MetricRepository, StreamRepository
 from core.domain.entities.metric import Metric
 from core.domain.enums import MetricType, StreamType
-from core.domain.events.domain_events import MetricUpdated
 
 # Simple 1:1 mapping for Phase 1. Real calculator adapter in Phase 3 handles multiple metric types.
 STREAM_TO_METRIC_TYPE: dict[StreamType, MetricType] = {
@@ -20,7 +19,7 @@ STREAM_TO_METRIC_TYPE: dict[StreamType, MetricType] = {
 
 
 class ProcessStreamUpdate:
-    """Runs MetricsCalculator on a stream, saves the resulting metric, emits MetricUpdated."""
+    """Runs MetricsCalculator on a stream, saves the resulting metric, publishes entity events."""
 
     def __init__(
         self,
@@ -61,8 +60,5 @@ class ProcessStreamUpdate:
 
         await self._metric_repo.save(metric)
 
-        event = MetricUpdated(
-            metric_type=metric_type.value,
-            project_id=project_id,
-        )
-        await self._event_publisher.publish(event)
+        events = metric.flush_events()
+        await self._event_publisher.publish_many(events)

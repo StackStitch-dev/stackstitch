@@ -1,4 +1,4 @@
-"""HandleMessage use case -- adds message to thread, emits event, creates invocation (D-65)."""
+"""HandleMessage use case -- adds message to thread, publishes entity events, creates invocation (D-65)."""
 
 from __future__ import annotations
 
@@ -9,11 +9,10 @@ from core.application.ports.repositories import InvocationRepository, ThreadRepo
 from core.domain.entities.invocation import Invocation
 from core.domain.entities.thread import Message, Thread
 from core.domain.enums import InvocationSource, MessageRole
-from core.domain.events.domain_events import MessageCreated
 
 
 class HandleMessage:
-    """Creates or appends to a Thread, emits MessageCreated, creates Invocation."""
+    """Creates or appends to a Thread, publishes entity-collected events, creates Invocation."""
 
     def __init__(
         self,
@@ -40,11 +39,9 @@ class HandleMessage:
 
         await self._thread_repo.save(thread)
 
-        event = MessageCreated(
-            thread_id=thread_id,
-            message_content=content,
-        )
-        await self._event_publisher.publish(event)
+        # Harvest events from thread entity and publish
+        events = thread.flush_events()
+        await self._event_publisher.publish_many(events)
 
         invocation = Invocation(
             thread_id=thread_id,

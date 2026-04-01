@@ -17,6 +17,12 @@ from core.domain.enums import (
     MetricType,
     StreamType,
 )
+from core.domain.events.domain_events import (
+    InsightCreated,
+    MessageCreated,
+    MetricUpdated,
+    StreamUpdated,
+)
 from core.domain.exceptions import InvalidEntityStateError
 
 
@@ -62,6 +68,29 @@ class TestStream:
         s.add_data_point(dp)
         assert len(s.data_points) == 1
         assert s.data_points[0] is dp
+
+    def test_add_data_point_collects_stream_updated_event(self) -> None:
+        from core.domain.entities.stream import Stream, StreamDataPoint
+
+        pid = uuid4()
+        s = Stream(source="github", stream_type=StreamType.PULL_REQUEST, project_id=pid)
+        dp = StreamDataPoint(timestamp=datetime.now(timezone.utc), data={"pr": 1})
+        s.add_data_point(dp)
+        events = s.flush_events()
+        assert len(events) == 1
+        assert isinstance(events[0], StreamUpdated)
+        assert events[0].source == "github"
+        assert events[0].stream_type == "pull_request"
+        assert events[0].project_id == pid
+
+    def test_flush_events_clears(self) -> None:
+        from core.domain.entities.stream import Stream, StreamDataPoint
+
+        pid = uuid4()
+        s = Stream(source="github", stream_type=StreamType.PULL_REQUEST, project_id=pid)
+        s.add_data_point(StreamDataPoint(timestamp=datetime.now(timezone.utc), data={"pr": 1}))
+        s.flush_events()
+        assert s.flush_events() == []
 
     def test_equality_same_composite_key(self) -> None:
         from core.domain.entities.stream import Stream
@@ -137,6 +166,28 @@ class TestMetric:
         dp = MetricDataPoint(value=42.0, timestamp=datetime.now(timezone.utc))
         m.add_data_point(dp)
         assert len(m.data_points) == 1
+
+    def test_add_data_point_collects_metric_updated_event(self) -> None:
+        from core.domain.entities.metric import Metric, MetricDataPoint
+
+        pid = uuid4()
+        m = Metric(metric_type=MetricType.PR_CYCLE_TIME, project_id=pid)
+        dp = MetricDataPoint(value=42.0, timestamp=datetime.now(timezone.utc))
+        m.add_data_point(dp)
+        events = m.flush_events()
+        assert len(events) == 1
+        assert isinstance(events[0], MetricUpdated)
+        assert events[0].metric_type == "pr_cycle_time"
+        assert events[0].project_id == pid
+
+    def test_flush_events_clears(self) -> None:
+        from core.domain.entities.metric import Metric, MetricDataPoint
+
+        pid = uuid4()
+        m = Metric(metric_type=MetricType.PR_CYCLE_TIME, project_id=pid)
+        m.add_data_point(MetricDataPoint(value=1.0, timestamp=datetime.now(timezone.utc)))
+        m.flush_events()
+        assert m.flush_events() == []
 
     def test_equality_based_on_composite_key(self) -> None:
         from core.domain.entities.metric import Metric
@@ -308,6 +359,25 @@ class TestInsight:
         assert insight.id is not None
         assert insight.created_at is not None
 
+    def test_collects_insight_created_on_construction(self) -> None:
+        from core.domain.entities.insight import Insight
+
+        pid = uuid4()
+        inv_id = uuid4()
+        insight = Insight(
+            project_id=pid,
+            investigation_id=inv_id,
+            title="Test",
+            narrative="narrative",
+            insight_type=InsightType.ANOMALY_EXPLANATION,
+        )
+        events = insight.flush_events()
+        assert len(events) == 1
+        assert isinstance(events[0], InsightCreated)
+        assert events[0].insight_id == insight.id
+        assert events[0].investigation_id == inv_id
+        assert events[0].project_id == pid
+
 
 # --- Thread & Message ---
 
@@ -348,6 +418,18 @@ class TestThread:
         t.add_message(msg)
         assert len(t.messages) == 1
         assert t.messages[0] is msg
+
+    def test_add_message_collects_message_created_event(self) -> None:
+        from core.domain.entities.thread import Message, Thread
+
+        t = Thread(project_id=uuid4())
+        msg = Message(role=MessageRole.USER, content="hello")
+        t.add_message(msg)
+        events = t.flush_events()
+        assert len(events) == 1
+        assert isinstance(events[0], MessageCreated)
+        assert events[0].thread_id == t.id
+        assert events[0].message_content == "hello"
 
 
 # --- Invocation ---

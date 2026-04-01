@@ -1,4 +1,4 @@
-"""ProcessStreamDataPoint use case -- persists data point and emits StreamUpdated (D-61)."""
+"""ProcessStreamDataPoint use case -- persists data point and publishes entity events (D-61)."""
 
 from __future__ import annotations
 
@@ -10,11 +10,10 @@ from core.application.ports.event_publisher import EventPublisher
 from core.application.ports.repositories import StreamRepository
 from core.domain.entities.stream import Stream, StreamDataPoint
 from core.domain.enums import StreamType
-from core.domain.events.domain_events import StreamUpdated
 
 
 class ProcessStreamDataPoint:
-    """Persists a stream data point to StreamRepository and emits StreamUpdated."""
+    """Persists a stream data point to StreamRepository and publishes entity-collected events."""
 
     def __init__(
         self,
@@ -47,9 +46,5 @@ class ProcessStreamDataPoint:
 
         await self._stream_repo.save(stream)
 
-        event = StreamUpdated(
-            source=source,
-            stream_type=stream_type,
-            project_id=project_id,
-        )
-        await self._event_publisher.publish(event)
+        events = stream.flush_events()
+        await self._event_publisher.publish_many(events)

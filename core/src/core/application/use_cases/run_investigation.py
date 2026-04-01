@@ -15,7 +15,6 @@ from core.domain.entities.insight import Insight
 from core.domain.entities.investigation import Investigation
 from core.domain.entities.invocation import Invocation
 from core.domain.enums import InsightType, InvestigationTrigger, InvocationSource
-from core.domain.events.domain_events import InsightCreated
 
 
 class RunInvestigation:
@@ -73,12 +72,9 @@ class RunInvestigation:
             await self._investigation_repo.save(investigation)
             await self._insight_repo.save(insight)
 
-            event = InsightCreated(
-                insight_id=insight.id,
-                investigation_id=investigation.id,
-                project_id=project_id,
-            )
-            await self._event_publisher.publish(event)
+            # Harvest events from insight entity and publish
+            events = insight.flush_events()
+            await self._event_publisher.publish_many(events)
 
             invocation = Invocation(
                 thread_id=trigger_ref,

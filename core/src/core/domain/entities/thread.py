@@ -6,7 +6,7 @@ from uuid import UUID, uuid4
 from pydantic import BaseModel, ConfigDict, Field, PrivateAttr
 
 from core.domain.enums import MessageRole
-from core.domain.events.domain_events import DomainEvent
+from core.domain.events.domain_events import DomainEvent, MessageCreated
 
 
 class Message(BaseModel):
@@ -33,6 +33,12 @@ class Thread(BaseModel):
 
     def add_message(self, message: Message) -> None:
         self.messages.append(message)
+        self.collect_event(
+            MessageCreated(
+                thread_id=self.id,
+                message_content=message.content,
+            )
+        )
 
     def collect_event(self, event: DomainEvent) -> None:
         self._events.append(event)
