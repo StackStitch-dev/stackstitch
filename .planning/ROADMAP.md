@@ -62,7 +62,10 @@ Plans:
   1. Kafka producer adapter implements EventPublisher port and can publish domain events to topics
   2. Kafka consumer infrastructure can subscribe to topics and route events to use case handlers
   3. Integration tests verify publish/consume round-trips against real Kafka (via testcontainers)
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 02B-01-PLAN.md -- Kafka adapter modules (connection, producer, consumer) + consumer entry point + Docker Compose
+- [ ] 02B-02-PLAN.md -- Integration tests (testcontainers fixtures, producer/consumer/round-trip tests)
 
 ### Phase 2c: Structured Logging
 **Goal**: All services emit structured JSON logs with correlation context for observability and debugging
@@ -141,7 +144,7 @@ Note: Phase 2b and 2c both depend on 2a but are independent of each other. Phase
 |-------|----------------|--------|-----------|
 | 1. Core Domain & Ports | 3/3 | Complete |  |
 | 2a. Docker Compose & MongoDB | 0/3 | Not started | - |
-| 2b. Kafka Adapters | 0/TBD | Not started | - |
+| 2b. Kafka Adapters | 0/2 | Not started | - |
 | 2c. Credentials & Logging | 0/TBD | Not started | - |
 | 3. Core Metric & Anomaly Engine | 0/TBD | Not started | - |
 | 4. Core Intelligence Engine | 0/TBD | Not started | - |
