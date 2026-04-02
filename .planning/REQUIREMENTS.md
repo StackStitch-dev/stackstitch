@@ -64,8 +64,8 @@ Requirements for initial open-source release. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFR-01**: All services run via a single Docker Compose command for local deployment
-- [ ] **INFR-02**: MongoDB is used as the primary data store for streams, metrics, and insights
+- [x] **INFR-01**: All services run via a single Docker Compose command for local deployment
+- [x] **INFR-02**: MongoDB is used as the primary data store for streams, metrics, and insights
 - [ ] **INFR-03**: Kafka handles async messaging between Connector Service and Core
 - [ ] **INFR-04**: Structured JSON logging with correlation context across all services
 - [x] **INFR-05**: Project scaffold follows DDD + Hexagonal Architecture for the Core service
@@ -116,8 +116,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | INFR-05 | Phase 1 | Complete |
-| INFR-01 | Phase 2a | Pending |
-| INFR-02 | Phase 2a | Pending |
+| INFR-01 | Phase 2a | Complete |
+| INFR-02 | Phase 2a | Complete |
 | INFR-03 | Phase 2b | Pending |
 | INFR-04 | Phase 2c | Pending |
 | CRED-01 | Phase 5 | Pending |
