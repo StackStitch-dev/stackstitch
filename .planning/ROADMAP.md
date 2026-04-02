@@ -50,7 +50,7 @@ Plans:
   3. Integration tests verify round-trip persistence for all 6 repository ports against real MongoDB (via testcontainers)
 **Plans**: 3 plans
 Plans:
-- [ ] 02A-01-PLAN.md -- Docker Compose, Dockerfile, FastAPI health stub, MongoDB connection module, integration test infrastructure
+- [x] 02A-01-PLAN.md -- Docker Compose, Dockerfile, FastAPI health stub, MongoDB connection module, integration test infrastructure
 - [ ] 02A-02-PLAN.md -- Stream, Metric, and Insight MongoDB repository adapters with integration tests
 - [ ] 02A-03-PLAN.md -- Investigation, Thread, and Invocation MongoDB repository adapters with integration tests
 
