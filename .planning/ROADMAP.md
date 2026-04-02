@@ -48,7 +48,11 @@ Plans:
   1. Running `docker compose up` starts MongoDB, Kafka, and the Core service stub without errors
   2. MongoDB adapters implement all repository ports and can persist/retrieve domain entities
   3. Integration tests verify round-trip persistence for all 6 repository ports against real MongoDB (via testcontainers)
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 02A-01-PLAN.md -- Docker Compose, Dockerfile, FastAPI health stub, MongoDB connection module, integration test infrastructure
+- [ ] 02A-02-PLAN.md -- Stream, Metric, and Insight MongoDB repository adapters with integration tests
+- [ ] 02A-03-PLAN.md -- Investigation, Thread, and Invocation MongoDB repository adapters with integration tests
 
 ### Phase 2b: Kafka Adapters
 **Goal**: Kafka adapters implement event publishing and consuming, enabling async message flow between services through the message broker
@@ -136,7 +140,7 @@ Note: Phase 2b and 2c both depend on 2a but are independent of each other. Phase
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Core Domain & Ports | 3/3 | Complete |  |
-| 2a. Docker Compose & MongoDB | 0/TBD | Not started | - |
+| 2a. Docker Compose & MongoDB | 0/3 | Not started | - |
 | 2b. Kafka Adapters | 0/TBD | Not started | - |
 | 2c. Credentials & Logging | 0/TBD | Not started | - |
 | 3. Core Metric & Anomaly Engine | 0/TBD | Not started | - |
