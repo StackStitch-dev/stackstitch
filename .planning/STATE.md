@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 2a context gathered
-last_updated: "2026-04-02T19:13:56.833Z"
-last_activity: 2026-04-02 -- Phase 02A execution started
+stopped_at: Completed 02A-02-PLAN.md
+last_updated: "2026-04-02T19:24:18.111Z"
+last_activity: 2026-04-02
 progress:
   total_phases: 9
   completed_phases: 1
   total_plans: 6
-  completed_plans: 4
+  completed_plans: 5
   percent: 11
 ---
 
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-03-27)
 ## Current Position
 
 Phase: 02A (docker-compose-mongodb-adapters) — EXECUTING
-Plan: 2 of 3
-Status: Executing Phase 02A -- Plan 01 complete
-Last activity: 2026-04-02 -- Plan 02A-01 completed (Docker Compose + health + connection module)
+Plan: 3 of 3
+Status: Ready to execute
+Last activity: 2026-04-02
 
 Progress: [#.........] 11%
 
@@ -56,6 +56,7 @@ Progress: [#.........] 11%
 | Phase 01 P02 | 4min | 2 tasks | 18 files |
 | Phase 01 P03 | 6m | 2 tasks | 15 files |
 | Phase 02A P01 | 2min | 2 tasks | 13 files |
+| Phase 02A P02 | 2min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -73,6 +74,7 @@ Recent decisions affecting current work:
 - [Phase 01]: Stream-to-metric 1:1 mapping dict for Phase 1; real calculator adapter in Phase 3
 - [Phase 02A-01]: PyMongo async (AsyncMongoClient) over deprecated Motor -- same API, better performance
 - [Phase 02A-01]: apache/kafka official image in KRaft mode over confluent cp-kafka
+- [Phase 02A]: Deterministic _id via uuid5 for idempotent decompose-on-write saves in Stream/Metric repos
 
 ### Pending Todos
 
@@ -86,6 +88,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-02T18:41:50.787Z
-Stopped at: Plan 02A-01 complete, continuing to 02A-02
-Resume file: .planning/phases/02A-docker-compose-mongodb-adapters/02A-01-SUMMARY.md
+Last session: 2026-04-02T19:24:18.109Z
+Stopped at: Completed 02A-02-PLAN.md
+Resume file: None

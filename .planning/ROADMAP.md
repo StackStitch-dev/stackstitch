@@ -51,7 +51,7 @@ Plans:
 **Plans**: 3 plans
 Plans:
 - [x] 02A-01-PLAN.md -- Docker Compose, Dockerfile, FastAPI health stub, MongoDB connection module, integration test infrastructure
-- [ ] 02A-02-PLAN.md -- Stream, Metric, and Insight MongoDB repository adapters with integration tests
+- [x] 02A-02-PLAN.md -- Stream, Metric, and Insight MongoDB repository adapters with integration tests
 - [ ] 02A-03-PLAN.md -- Investigation, Thread, and Invocation MongoDB repository adapters with integration tests
 
 ### Phase 2b: Kafka Adapters
