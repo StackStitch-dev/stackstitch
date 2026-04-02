@@ -1,3 +1,4 @@
+from bson.codec_options import CodecOptions
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.database import AsyncDatabase
 
@@ -9,5 +10,5 @@ async def create_mongo_client(uri: str) -> AsyncMongoClient:
 
 
 def get_database(client: AsyncMongoClient, db_name: str) -> AsyncDatabase:
-    """Get a database reference from the client."""
-    return client[db_name]
+    """Get a database reference from the client with tz-aware datetimes."""
+    return client.get_database(db_name, codec_options=CodecOptions(tz_aware=True))

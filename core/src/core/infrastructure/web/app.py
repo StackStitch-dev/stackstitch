@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from pymongo import AsyncMongoClient
 from pydantic_settings import BaseSettings
@@ -12,21 +14,19 @@ class CoreSettings(BaseSettings):
 
 def create_app() -> FastAPI:
     settings = CoreSettings()
-    app = FastAPI(title="StackStitch Core", version="0.1.0")
-    client: AsyncMongoClient | None = None
+    state: dict[str, AsyncMongoClient] = {}
 
-    @app.on_event("startup")
-    async def startup() -> None:
-        nonlocal client
-        client = AsyncMongoClient(settings.mongodb_uri)
+    @asynccontextmanager
+    async def lifespan(app: FastAPI):
+        state["client"] = AsyncMongoClient(settings.mongodb_uri)
+        yield
+        state["client"].close()
 
-    @app.on_event("shutdown")
-    async def shutdown() -> None:
-        if client:
-            client.close()
+    app = FastAPI(title="StackStitch Core", version="0.1.0", lifespan=lifespan)
 
     @app.get("/health")
     async def health() -> dict[str, str]:
+        client = state.get("client")
         if client is None:
             return {"status": "error", "detail": "no client"}
         try:

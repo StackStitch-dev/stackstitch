@@ -1,5 +1,3 @@
-import os
-
 import pytest
 from httpx import ASGITransport, AsyncClient
 from testcontainers.mongodb import MongoDbContainer
@@ -8,11 +6,13 @@ from core.infrastructure.web.app import create_app
 
 
 @pytest.fixture
-def test_app(mongo_container: MongoDbContainer, monkeypatch: pytest.MonkeyPatch):
-    """Create a FastAPI app pointing at the testcontainers MongoDB."""
+async def test_app(mongo_container: MongoDbContainer, monkeypatch: pytest.MonkeyPatch):
+    """Create a FastAPI app pointing at the testcontainers MongoDB, with lifespan."""
     url = mongo_container.get_connection_url()
     monkeypatch.setenv("MONGODB_URI", url)
-    return create_app()
+    app = create_app()
+    async with app.router.lifespan_context(app):
+        yield app
 
 
 async def test_health_returns_ok(test_app):
